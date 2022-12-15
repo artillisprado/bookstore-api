@@ -1,15 +1,28 @@
 package com.artillis.bookstore.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Categoria {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
+@Entity //@Entity(name = nomeDaTabela) por padrao ela ja coloca o nome da classe
+public class Categoria implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id //informar que essa id, é uma chave primária
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private String description;
 	
+	@OneToMany(mappedBy = "categoria") //mapear a lista de categorias instanciada em livros
 	private List<Livro> livros = new ArrayList<>();
 
 	public Categoria() {
